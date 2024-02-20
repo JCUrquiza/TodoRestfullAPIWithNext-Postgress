@@ -2,14 +2,20 @@
 
 import { FormEvent, useState } from 'react';
 import { IoTrashOutline } from 'react-icons/io5';
+import * as todosApi from '@/todos/helpers/todos';
+import { useRouter } from 'next/navigation';
 
 export const NewTodo = () => {
 
     const [description, setDescription] = useState('');
+    const router = useRouter();
 
     const onSubmit = ( e: FormEvent ) => {
         e.preventDefault();
         if ( description.trim().length === 0 ) return;
+        todosApi.createTodo( description );
+        setDescription('');
+        router.refresh();
     }
 
     return (
@@ -31,7 +37,7 @@ export const NewTodo = () => {
                 //TODO: onClick={ () => deleteCompleted() }
                 type='button' className="flex items-center justify-center rounded ml-2 bg-red-400 p-2 text-white hover:bg-red-700 transition-all">
                 <IoTrashOutline />
-                Delete
+                Borrar completados
             </button>
 
         </form>
