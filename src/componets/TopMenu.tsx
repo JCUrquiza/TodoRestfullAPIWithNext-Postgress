@@ -4,9 +4,18 @@ import { CiChat1, CiMenuBurger, CiSearch, CiShoppingBasket } from 'react-icons/c
 
 export const TopMenu = () => {
 
-    const cookieStore = cookies().get('cart')?.value;
+    const cookieStore = cookies();
+    const cart = JSON.parse( cookieStore.get('cart')?.value ?? '{}' );
 
-    console.log(cookieStore);
+    const getTotalCount = () => {
+        let items = 0;
+
+        Object.values( cart ).forEach( value => {
+            items = items + Number(value);
+        })
+
+        return items;
+    }
 
     return (
         <div className="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
@@ -33,7 +42,7 @@ export const TopMenu = () => {
                         <CiChat1 size={25} />
                     </button>
                     <button className="p-2 flex items-center justify-center h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
-                        <span className='text-sm mr-2 text-blue-800 font-bold'>10</span>
+                        <span className='text-sm mr-2 text-blue-800 font-bold'>{ getTotalCount() }</span>
                         <CiShoppingBasket size={25} />
                     </button>
                 </div>
