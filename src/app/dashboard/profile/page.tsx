@@ -13,8 +13,11 @@ export default function ProfilePage() {
 
     return (
         <div className='flex flex-col'>
-            <span className='text-1xl'>{ session?.user?.name }</span>
-            <span className='text-1xl'>{ session?.user?.email }</span>
+            <span className='text-1xl'>{ session?.user?.id ?? 'No Id' }</span>
+            <span className='text-1xl'>{ session?.user?.name ?? 'No Name' }</span>
+            <span className='text-1xl'>{ session?.user?.email ?? 'No Email' }</span>
+            <span className='text-1xl'>{ session?.user?.image ?? 'No Image' }</span>
+            <span className='text-1xl'>{ session?.user?.roles?.join(', ') ?? 'User' }</span>
         </div>
     )
 
