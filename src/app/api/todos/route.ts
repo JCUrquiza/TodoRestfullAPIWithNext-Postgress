@@ -55,9 +55,11 @@ export async function DELETE(request: Request) {
 
     try {
             
-        await prisma?.todo.deleteMany({ where:{ complete: true }});
+        await prisma?.todo.deleteMany({ where:{ complete: false }});
         
-        return NextResponse.json('Borrados');
+        return NextResponse.json({
+            message: 'Todos borrados'
+        });
         
     } catch (error) {
         return NextResponse.json( error, { status: 400 } );
